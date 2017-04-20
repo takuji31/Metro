@@ -1,4 +1,4 @@
-package jp.takuji31.metro;
+package jp.takuji31.metro.example;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
