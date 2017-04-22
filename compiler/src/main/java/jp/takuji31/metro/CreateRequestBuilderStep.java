@@ -150,7 +150,9 @@ public class CreateRequestBuilderStep implements ProcessingStep {
                             .methodBuilder(fieldSpec.name)
                             .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
                             .addParameter(ParameterSpec.builder(fieldSpec.type, fieldSpec.name).build())
+                            .returns(builderClassName)
                             .addStatement("this.$N = $N", fieldSpec, fieldSpec)
+                            .addStatement("return this")
                             .build()
                         );
                     });
