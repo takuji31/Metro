@@ -16,6 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -61,7 +62,6 @@ public class CreateRequestBuilderStep implements ProcessingStep {
                 // TODO: 2017/04/20 error
                 throw new IllegalStateException(klass.getClass().getName() + "is not interface");
             }
-            TypeName clientClassName = ClassName.get(klass.asType());
             klass
                 .getEnclosedElements()
                 .stream()
@@ -154,6 +154,29 @@ public class CreateRequestBuilderStep implements ProcessingStep {
                             .build()
                         );
                     });
+
+                    ParameterSpec serviceParameter = ParameterSpec.builder(TypeName.get(klass.asType()), "service").build();
+                    CodeBlock.Builder requestCode = CodeBlock
+                        .builder()
+                        .add("return $N."+ element.getSimpleName() +"(", serviceParameter);
+
+                    getterSpecs.forEach(methodSpec -> {
+                        if (getterSpecs.indexOf(methodSpec) != 0) {
+                            requestCode.add(" ,");
+                        }
+                        requestCode.add("$N()", methodSpec);
+                    });
+
+                    requestCode.add(");\n");
+
+                    reqClass.addMethod(MethodSpec
+                        .methodBuilder("request")
+                        .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
+                        .returns(TypeName.get(element.getReturnType()))
+                        .addParameter(serviceParameter)
+                        .addCode(requestCode.build())
+                        .build()
+                    );
 
                     TypeSpec builderClassSpec = builderClass.build();
                     reqClass.addType(builderClassSpec);
