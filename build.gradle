@@ -11,6 +11,29 @@ buildscript {
         // in the individual module build.gradle files
     }
 }
+final ANDROID_SDK_PATH = {
+    final localProperties = new Properties()
+    try {
+        localProperties.load(new FileInputStream("${project.rootProject.projectDir}/local.properties"))
+    } catch (IOException e) { /* ignore errors */
+    }
+    def androidSdkPath = localProperties['sdk.dir'] ?: System.getenv('ANDROID_HOME')
+    if (!androidSdkPath) {
+        throw new RuntimeException("Missing local.properties")
+    }
+    androidSdkPath
+}()
+final ANDROID_SUPPORT_REPOSITORY = "${ANDROID_SDK_PATH}/extras/android/m2repository"
+
+allprojects {
+    repositories {
+        maven {
+            url ANDROID_SUPPORT_REPOSITORY
+        }
+
+        jcenter()
+    }
+}
 
 allprojects {
     repositories {

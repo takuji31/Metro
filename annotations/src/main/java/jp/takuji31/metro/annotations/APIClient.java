@@ -1,4 +1,4 @@
-package jp.takuji31.metro.annotation;
+package jp.takuji31.metro.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
