@@ -6,11 +6,8 @@ import com.google.auto.service.AutoService;
 import java.util.Arrays;
 
 import javax.annotation.processing.Processor;
-import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
-
-import jp.takuji31.metro.annotations.APIClient;
 
 @AutoService(Processor.class)
 @SupportedSourceVersion(SourceVersion.RELEASE_8)

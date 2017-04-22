@@ -1,7 +1,6 @@
 package jp.takuji31.metro;
 
 import com.google.auto.common.BasicAnnotationProcessor.ProcessingStep;
-import com.google.common.collect.Lists;
 import com.google.common.collect.SetMultimap;
 import com.google.common.collect.Sets;
 import com.squareup.javapoet.ClassName;
@@ -18,12 +17,9 @@ import org.apache.commons.lang3.StringUtils;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import javax.annotation.processing.Filer;
 import javax.annotation.processing.Messager;
@@ -33,11 +29,10 @@ import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.VariableElement;
-import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 
-import jp.takuji31.metro.annotations.APIClient;
+import jp.takuji31.metro.annotations.HttpClient;
 
 public class CreateRequestBuilderStep implements ProcessingStep {
 
@@ -55,12 +50,12 @@ public class CreateRequestBuilderStep implements ProcessingStep {
 
     @Override
     public Set<? extends Class<? extends Annotation>> annotations() {
-        return Sets.newHashSet(APIClient.class);
+        return Sets.newHashSet(HttpClient.class);
     }
 
     @Override
     public Set<Element> process(SetMultimap<Class<? extends Annotation>, Element> elementsByAnnotation) {
-        Set<Element> elements = elementsByAnnotation.get(APIClient.class);
+        Set<Element> elements = elementsByAnnotation.get(HttpClient.class);
         for (Element klass : elements) {
             if (klass.getKind().isClass()) {
                 // TODO: 2017/04/20 error
