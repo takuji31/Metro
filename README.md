@@ -1,4 +1,4 @@
 # Metro
-Generate API Request Builder and API Client Library for Retrofit
+Generate HTTP Request Builder for Retrofit
 
 ## TBD
