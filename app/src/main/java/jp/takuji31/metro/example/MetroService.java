@@ -10,13 +10,13 @@ import retrofit2.http.Path;
  * Created by takuji on 2017/04/20.
  */
 @HttpClient
-public interface TestService {
-    @GET("/")
-    Call<String> getSimpleHtml();
-
+public interface MetroService {
     @GET("/")
     Single<String> getSimpleHtmlAsSingle();
 
-    @GET("/users/{username}")
-    Single<User> user(@Path("username")String username);
+    @GET("/users/{userName}")
+    Single<User> user(@Path("userName")String userName);
+
+    @GET("/users/{userName}/status/{status_id}")
+    Single<Status> userStatus(@Path("userName")String userName, @Path("status_id")Long statusId);
 }
