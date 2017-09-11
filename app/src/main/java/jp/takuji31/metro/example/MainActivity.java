@@ -19,18 +19,18 @@ public class MainActivity extends AppCompatActivity {
 
         MetroService metroService = retrofit.create(MetroService.class);
 
-        Single<User> userSingle = UserRequest
-            .builder()
-            .userName("takuji31")
-            .build()
-            .request(metroService);
-
-        Single<Status> statusSingle = UserStatusRequest
-            .builder()
-            .userName("takuji31")
-            .statusId(1234567890L)
-            .build()
-            .request(metroService);
+//        Single<User> userSingle = UserRequest
+//            .builder()
+//            .userName("takuji31")
+//            .build()
+//            .request(metroService);
+//
+//        Single<Status> statusSingle = UserStatusRequest
+//            .builder()
+//            .userName("takuji31")
+//            .statusId(1234567890L)
+//            .build()
+//            .request(metroService);
 
         // no parameter endpoint request not created
         Single<String> htmlSingle = metroService
